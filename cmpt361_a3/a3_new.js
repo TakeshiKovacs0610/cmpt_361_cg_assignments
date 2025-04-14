@@ -128,7 +128,5 @@ const DEF_INPUT = [
     "l,7,4;"
 ].join("\n");
 
-
-
 // DO NOT CHANGE ANYTHING BELOW HERE
 export { Rasterizer, Framebuffer, DEF_INPUT };

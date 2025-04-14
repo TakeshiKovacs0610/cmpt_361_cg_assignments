@@ -5,30 +5,27 @@
     <title>Assignment 3: Rasterizing Lines and Triangles!</title>
     <style>canvas { border: 2px solid red; }</style>
     <script type="module">
-      const urlParams = new URLSearchParams(window.location.search);
-      const pixelsWide = urlParams.get('pixelsWide') || 64;
-      const saveImageFilename = urlParams.get('saveImage');
-      const urlInput = urlParams.get('input');
-      const codeFile = urlParams.get('codeFile') || './a3.js
-      const { Rasterizer, Framebuffer, DEF_INPUT } = await import(codeFile);
-
-      document.getElementById("text-input").value = DEF_INPUT;
-
-      let canvas = document.getElementById('gl-canvas');
-      let framebuffer = new Framebuffer({canvas: canvas, pixelsWide: pixelsWide});
-      let rasterizer = new Rasterizer({framebuffer: framebuffer});
-
-      function update() {
-        const input = urlInput || document.getElementById("text-input").value;
-        rasterizer.parse(input);
-        framebuffer.display();
-        if (saveImageFilename) {
-          framebuffer.saveImage(saveImageFilename);
-        }
-      }
-
-      window.update = update;
-      update();
+      import { Rasterizer, Framebuffer, DEF_INPUT } from './a3_new.js';
+      
+      const pixelsWide = 64;
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Set the input text from the DEF_INPUT
+        document.getElementById("text-input").value = DEF_INPUT;
+        
+        let canvas = document.getElementById('gl-canvas');
+        let framebuffer = new Framebuffer({canvas: canvas, pixelsWide: pixelsWide});
+        let rasterizer = new Rasterizer({framebuffer: framebuffer});
+        
+        window.update = function() {
+          const input = document.getElementById("text-input").value;
+          rasterizer.parse(input);
+          framebuffer.display();
+        };
+        
+        // Initial update
+        update();
+      });
     </script>
   </head>
   <body>
